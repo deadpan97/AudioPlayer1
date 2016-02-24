@@ -68,7 +68,7 @@ public class MusicListFragment extends Fragment {
         //create and set adapter
         SongAdapter songAdt = new SongAdapter(context, songList);
         songView.setAdapter(songAdt);
-        //
+
 
         return rootView;
     }
