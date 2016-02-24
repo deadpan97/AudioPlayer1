@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
         songView = (ListView)findViewById(R.id.song_list);
         songList = new ArrayList<Song>();
         getSongList();
-
+        //booty
     }
     public void getSongList(){
         ContentResolver musicResolver = getContentResolver();
