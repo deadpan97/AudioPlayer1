@@ -12,5 +12,14 @@
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <ToggleButton
+        android:id="@+id/pause_play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="@string/pause_button"
+        android:textOff="@string/play_button"
+        android:onClick="onToggleClicked"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
