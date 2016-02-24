@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -30,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
+    ToggleButton mToggleButton;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -51,7 +53,16 @@ public class MainActivity extends ActionBarActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
+    public void onToggleClicked(View view) {
+        mToggleButton = (ToggleButton) findViewById(R.id.pause_play_button);
+        boolean on = ((ToggleButton) view).isChecked();
 
+        if (on) {
+            // Enable vibrate
+        } else {
+            // Disable vibrate
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
