@@ -9,7 +9,8 @@
                 tools:context=".MainActivity$PlaceholderFragment">
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/Audio_Player"
+        android:hint="AudioPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ToggleButton
