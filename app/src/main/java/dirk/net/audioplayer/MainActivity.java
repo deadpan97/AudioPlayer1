@@ -2,6 +2,7 @@ package dirk.net.audioplayer;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,20 +10,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    private static final String TAG = "MainActivity";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -35,16 +44,20 @@ public class MainActivity extends ActionBarActivity {
     ToggleButton mToggleButton;
     private ArrayList<Song> songList;
     private ListView songView;
+    MediaPlayer mp;
+    SeekBar seek;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-   // commit test change
+    // commit test change
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -83,17 +96,37 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-
-    public void onToggleClicked(View view) {
-        mToggleButton = (ToggleButton) findViewById(R.id.pause_play_button);
-        boolean on = ((ToggleButton) view).isChecked();
-
-        if (on) {
-            // Enable vibrate
-        } else {
-            // Disable vibrate
-        }
+    public void onClicked(View view) {
+        mp = MediaPlayer.create(this, R.raw.when_a_man_loves_a_woman_2003);
+        final Button play_button = (Button)this.findViewById(R.id.pause_play_button);
+        final Button stop_button = (Button)this.findViewById(R.id.stop_button);
+        play_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.isPlaying()) {
+                    mp.pause();
+                    Log.v(TAG, "mp stopped");
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "Playing sound...");
+                    mp.start();
+                    play_button.setText("❚❚");
+                }
+            }
+        });
+        stop_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.getCurrentPosition() > 0) {
+                    mp.pause();
+                    mp.seekTo(0);
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "It's not playing, doofus");
+                }
+            }
+        });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
