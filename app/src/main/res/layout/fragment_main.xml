@@ -13,15 +13,27 @@
         android:hint="AudioPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <ToggleButton
+    <Button
         android:id="@+id/pause_play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOn="@string/pause_button"
-        android:textOff="@string/play_button"
-        android:onClick="onToggleClicked"
+        android:text="@string/play_button"
+        android:onClick="onClicked"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/stop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stop_button"
+        android:onClick="onClicked"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/pause_play_button"/>
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pause_play_button"
+        android:id="@+id/seek"/>
     <ListView
         android:id="@+id/song_list"
         android:layout_width="fill_parent"
