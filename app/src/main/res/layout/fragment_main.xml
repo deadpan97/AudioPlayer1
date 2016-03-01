@@ -13,27 +13,41 @@
         android:hint="AudioPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/pause_play_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/play_button"
-        android:onClick="onClicked"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
-    <Button
-        android:id="@+id/stop_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/stop_button"
-        android:onClick="onClicked"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/pause_play_button"/>
-    <SeekBar
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/pause_play_button"
-        android:id="@+id/seek"/>
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/skip_backward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_backward_button"
+            android:onClick="onClicked"
+            />
+        <Button
+            android:id="@+id/pause_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_button"
+            android:onClick="onClicked"
+            android:layout_gravity="bottom"/>
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_button"
+            android:onClick="onClicked"/>
+        <Button
+            android:id="@+id/skip_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_forward_button"
+            android:onClick="onClicked"
+            />
+    </LinearLayout>
     <ListView
         android:id="@+id/song_list"
         android:layout_width="fill_parent"

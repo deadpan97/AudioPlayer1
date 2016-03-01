@@ -10,4 +10,6 @@
     <string name="play_button">►</string>
     <string name="pause_button">❚❚</string>
     <string name="stop_button">■</string>
+    <string name="skip_forward_button">▶▶</string>
+    <string name="skip_backward_button">◀◀</string>
 </resources>

@@ -46,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
     private ListView songView;
     MediaPlayer mp;
     SeekBar seek;
+    final int SKIP_FORWARD = 500;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -100,6 +101,8 @@ public class MainActivity extends ActionBarActivity {
         mp = MediaPlayer.create(this, R.raw.when_a_man_loves_a_woman_2003);
         final Button play_button = (Button)this.findViewById(R.id.pause_play_button);
         final Button stop_button = (Button)this.findViewById(R.id.stop_button);
+        final Button fskip_button = (Button)this.findViewById(R.id.skip_forward);
+        final Button bskip_button = (Button)this.findViewById(R.id.skip_backward);
         play_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mp.isPlaying()) {
@@ -124,6 +127,17 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
+        fskip_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.isPlaying() || mp.getCurrentPosition() != 0) {
+                    mp.seekTo(mp.getCurrentPosition() + SKIP_FORWARD);
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "stahp skipping");
+                }
+            }
+        });
+
     }
 
 
