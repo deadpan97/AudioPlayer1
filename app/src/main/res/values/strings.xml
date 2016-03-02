@@ -12,4 +12,5 @@
     <string name="stop_button">■</string>
     <string name="skip_forward_button">▶▶</string>
     <string name="skip_backward_button">◀◀</string>
+    <string name="seek_bar">seek</string>
 </resources>

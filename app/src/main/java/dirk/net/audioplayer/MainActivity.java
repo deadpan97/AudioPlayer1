@@ -5,28 +5,25 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -46,7 +43,8 @@ public class MainActivity extends ActionBarActivity {
     private ListView songView;
     MediaPlayer mp;
     SeekBar seek;
-    final int SKIP_FORWARD = 500;
+    final int SKIP_FORWARD = 1000;
+    final int SKIP_BACKWARD = 1000;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -103,6 +101,23 @@ public class MainActivity extends ActionBarActivity {
         final Button stop_button = (Button)this.findViewById(R.id.stop_button);
         final Button fskip_button = (Button)this.findViewById(R.id.skip_forward);
         final Button bskip_button = (Button)this.findViewById(R.id.skip_backward);
+        final SeekBar seekBar = (SeekBar)this.findViewById(R.id.seekBar);
+
+        final Handler mHandler = new Handler();
+//Make sure you update Seekbar on UI thread
+        MainActivity.this.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if(mp != null){
+                    seekBar.setMax(mp.getDuration());
+                    int mCurrentPosition = mp.getCurrentPosition();
+                    seekBar.setProgress(mCurrentPosition);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        });
+
         play_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mp.isPlaying()) {
@@ -135,6 +150,26 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     Log.v(TAG, "stahp skipping");
                 }
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(mp != null && fromUser){
+                    mp.seekTo(progress);
+
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
