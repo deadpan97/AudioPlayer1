@@ -144,14 +144,25 @@ public class MainActivity extends ActionBarActivity {
         });
         fskip_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (mp.isPlaying() || mp.getCurrentPosition() != 0) {
+                if (mp.isPlaying() || mp.getCurrentPosition() != 0 && mp.getCurrentPosition() + SKIP_FORWARD < mp.getDuration()) {
                     mp.seekTo(mp.getCurrentPosition() + SKIP_FORWARD);
-                    play_button.setText("►");
                 } else {
                     Log.v(TAG, "stahp skipping");
                 }
             }
         });
+
+        bskip_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+             if (mp.isPlaying() || mp.getCurrentPosition() != 0 && mp.getCurrentPosition() - SKIP_BACKWARD > 0) {
+                    mp.seekTo(mp.getCurrentPosition() - SKIP_BACKWARD);
+                } else {
+                    Log.v(TAG, "stahp skipping");
+                }
+            }
+
+            });
+
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
