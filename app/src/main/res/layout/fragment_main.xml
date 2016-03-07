@@ -49,11 +49,6 @@
             android:onClick="onClicked"
             />
     </LinearLayout>
-    <ListView
-        android:id="@+id/song_list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -61,6 +56,6 @@
         android:id="@+id/seekBar"
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/song_list"/>
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

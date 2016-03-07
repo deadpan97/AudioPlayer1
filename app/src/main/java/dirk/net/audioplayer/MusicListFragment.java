@@ -64,7 +64,7 @@ public class MusicListFragment extends Fragment {
         context = getActivity().getApplicationContext();
 
         //retrieve list view
-        songView = (ListView)rootView.findViewById(R.id.song_listview);
+        songView = (ListView) rootView.findViewById(R.id.song_listview);
         //instantiate list
         songList = new ArrayList<Song>();
         //get songs from device
@@ -84,13 +84,13 @@ public class MusicListFragment extends Fragment {
     }
 
     //method to retrieve song info from device
-    public void getSongList(){
+    public void getSongList() {
         //query external audio
         ContentResolver musicResolver = getActivity().getContentResolver();
         Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
         //iterate over results if valid
-        if(musicCursor!=null && musicCursor.moveToFirst()){
+        if (musicCursor != null && musicCursor.moveToFirst()) {
             //get columns
             int titleColumn = musicCursor.getColumnIndex
                     (android.provider.MediaStore.Audio.Media.TITLE);
@@ -108,6 +108,101 @@ public class MusicListFragment extends Fragment {
             while (musicCursor.moveToNext());
         }
     }
+
+
+    public void onClicked(View view) {
+        mp = MediaPlayer.create(getActivity(), R.raw.when_a_man_loves_a_woman_2003);
+        final Button play_button = (Button)getActivity().findViewById(R.id.pause_play_button);
+        final Button stop_button = (Button)getActivity().findViewById(R.id.stop_button);
+        final Button fskip_button = (Button)getActivity().findViewById(R.id.skip_forward);
+        final Button bskip_button = (Button)getActivity().findViewById(R.id.skip_backward);
+        final SeekBar seekBar = (SeekBar)getActivity().findViewById(R.id.seekBar);
+
+        final Handler mHandler = new Handler();
+//Make sure you update Seekbar on UI thread
+        getActivity().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if(mp != null){
+                    seekBar.setMax(mp.getDuration());
+                    int mCurrentPosition = mp.getCurrentPosition();
+                    seekBar.setProgress(mCurrentPosition);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        });
+
+        play_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.isPlaying()) {
+                    mp.pause();
+                    Log.v(TAG, "mp stopped");
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "Playing sound...");
+                    mp.start();
+                    play_button.setText("❚❚");
+                }
+            }
+        });
+        stop_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.getCurrentPosition() > 0) {
+                    mp.pause();
+                    mp.seekTo(0);
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "It's not playing, doofus");
+                }
+            }
+        });
+        fskip_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.isPlaying() || mp.getCurrentPosition() != 0 && mp.getCurrentPosition() + SKIP_FORWARD < mp.getDuration()) {
+                    mp.seekTo(mp.getCurrentPosition() + SKIP_FORWARD);
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "stahp skipping");
+                }
+            }
+        });
+
+        bskip_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mp.isPlaying() || mp.getCurrentPosition() != 0 && mp.getCurrentPosition() - SKIP_BACKWARD > 0) {
+                    mp.seekTo(mp.getCurrentPosition() - SKIP_BACKWARD);
+                    play_button.setText("►");
+                } else {
+                    Log.v(TAG, "stahp skipping");
+                }
+            }
+        });
+
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (mp != null && fromUser) {
+                    mp.seekTo(progress);
+
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+
 
     public class SongAdapter extends BaseAdapter {
 

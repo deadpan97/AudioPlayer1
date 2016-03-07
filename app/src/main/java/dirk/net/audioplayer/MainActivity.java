@@ -5,19 +5,16 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.ToggleButton;
@@ -73,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        songView = (ListView)findViewById(R.id.song_list);
+        songView = (ListView)findViewById(R.id.song_listview);
         songList = new ArrayList<Song>();
         getSongList();
         Collections.sort(songList, new Comparator<Song>() {
@@ -118,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
     }*/
 
 
-    public void onClicked(View view) {
+    /*public void onClicked(View view) {
         mp = MediaPlayer.create(this, R.raw.when_a_man_loves_a_woman_2003);
         final Button play_button = (Button)this.findViewById(R.id.pause_play_button);
         final Button stop_button = (Button)this.findViewById(R.id.stop_button);
@@ -196,7 +193,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-    }
+    }*/
 
 
 
