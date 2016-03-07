@@ -6,6 +6,41 @@
         android:id="@+id/song_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout">
+        <Button
+            android:id="@+id/skip_backward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_backward_button"
+            android:onClick="onClicked"
+            />
+        <Button
+            android:id="@+id/pause_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_button"
+            android:onClick="onClicked"
+            android:layout_gravity="bottom"/>
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_button"
+            android:onClick="onClicked"/>
+        <Button
+            android:id="@+id/skip_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_forward_button"
+            android:onClick="onClicked"
+            />
+    </LinearLayout>
     <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

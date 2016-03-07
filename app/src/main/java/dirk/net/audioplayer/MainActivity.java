@@ -23,6 +23,8 @@ import android.widget.SeekBar;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 
@@ -45,6 +47,8 @@ public class MainActivity extends ActionBarActivity {
     SeekBar seek;
     final int SKIP_FORWARD = 1000;
     final int SKIP_BACKWARD = 1000;
+
+
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -70,7 +74,11 @@ public class MainActivity extends ActionBarActivity {
         songView = (ListView)findViewById(R.id.song_list);
         songList = new ArrayList<Song>();
         getSongList();
-        //booty
+        Collections.sort(songList, new Comparator<Song>() {
+            public int compare(Song a, Song b) {
+                return a.getTitle().compareTo(b.getTitle());
+            }
+        });
     }
     public void getSongList(){
         ContentResolver musicResolver = getContentResolver();
@@ -144,25 +152,14 @@ public class MainActivity extends ActionBarActivity {
         });
         fskip_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (mp.isPlaying() || mp.getCurrentPosition() != 0 && mp.getCurrentPosition() + SKIP_FORWARD < mp.getDuration()) {
+                if (mp.isPlaying() || mp.getCurrentPosition() != 0) {
                     mp.seekTo(mp.getCurrentPosition() + SKIP_FORWARD);
+                    play_button.setText("►");
                 } else {
                     Log.v(TAG, "stahp skipping");
                 }
             }
         });
-
-        bskip_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-             if (mp.isPlaying() || mp.getCurrentPosition() != 0 && mp.getCurrentPosition() - SKIP_BACKWARD > 0) {
-                    mp.seekTo(mp.getCurrentPosition() - SKIP_BACKWARD);
-                } else {
-                    Log.v(TAG, "stahp skipping");
-                }
-            }
-
-            });
-
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -225,7 +222,10 @@ public class MainActivity extends ActionBarActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                default:
+                    return MusicListFragment.newInstance(position + 1);
+            }
         }
 
         @Override

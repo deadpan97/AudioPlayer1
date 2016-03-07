@@ -3,15 +3,20 @@ package dirk.net.audioplayer;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +36,11 @@ public class MusicListFragment extends Fragment {
     private Context context;
     private ListView songView;
     private ArrayList songList;
+    MediaPlayer mp;
+    SeekBar seek;
+    final int SKIP_FORWARD = 1000;
+    final int SKIP_BACKWARD = 1000;
+    private static final String TAG = "MusicListFragment";
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -143,5 +153,7 @@ public class MusicListFragment extends Fragment {
             songLay.setTag(position);
             return songLay;
         }
+
     }
+
 }
