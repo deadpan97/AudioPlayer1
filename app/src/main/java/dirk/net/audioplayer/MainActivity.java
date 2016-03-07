@@ -54,6 +54,8 @@ public class MainActivity extends ActionBarActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    private Object musicSrv;
+
     // commit test change
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,19 @@ public class MainActivity extends ActionBarActivity {
             while (musicCursor.moveToNext());
         }
     }
+
+   /* public void songPicked(View view){
+        musicSrv.setSong(Integer.parseInt(view.getTag().toString()));
+        musicSrv.playSong();
+        if(playbackPaused){
+            //setController();
+            playbackPaused=false;
+        }
+        if(!controller.isShowing()) {
+            controller.show(0);
+        }
+    }*/
+
 
     public void onClicked(View view) {
         mp = MediaPlayer.create(this, R.raw.when_a_man_loves_a_woman_2003);
@@ -164,7 +179,7 @@ public class MainActivity extends ActionBarActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(mp != null && fromUser){
+                if (mp != null && fromUser) {
                     mp.seekTo(progress);
 
                 }
